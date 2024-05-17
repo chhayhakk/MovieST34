@@ -7,33 +7,19 @@ use App\Http\Middleware\IsAdmin;
 Route::get('/', function () {
     return view('auth.register');
 });
-
-//This is for user
+// This is for user
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/main', function () {
-        return view('auth.main');
+    Route::get('/user', function () {
+        //This is for admin interface
+        if(Auth::user()->is_admin){
+            return view('auth.index');
+        }
+        //This is for user interface
+        return view('auth.user');
     });
 });
-//This is for admin
-// Route::middleware(['auth', 'verified', IsAdmin::class])->group(function () {
-//     Route::get('/index', function () {
-//         return view('auth.index');
-//     });
-// });
-
-//This is for user
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('/main', function () {
-//         return view('auth.main');
-//     });
-// });
 
 
-// Route::middleware(['auth','verified'])->group(function(){
-//     Route::get('/index', function(){
-//         return view('auth.index');
-//     });
-// });
 
 
 
