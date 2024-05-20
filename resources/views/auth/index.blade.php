@@ -58,7 +58,7 @@
 
 			<div class="sidebar__user-title">
 				<span>Admin</span>
-				<p>{{Auth::user()->name}}</p>
+				<p>{{ucfirst(Auth::user()->name)}}</p>
 			</div>
 			<form class="sidebar__user-btn" method="POST" action="{{route('logout')}}">
 				@csrf

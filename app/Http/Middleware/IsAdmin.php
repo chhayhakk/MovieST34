@@ -19,7 +19,7 @@ class IsAdmin
         
         if (!Auth::user()->is_admin) {
            // return $next($request);
-           return redirect()->route('auth.user');
+           return abort(401);
         }
 
         // If the user is not an admin, redirect to 'auth.user'
