@@ -87,7 +87,7 @@
 
 								<ul class="dropdown-menu header__nav-menu header__nav-menu--scroll" aria-labelledby="dropdownMenu3">
 									<li><a href="about.html">About us</a></li>
-									<li><a href="profile.html">Profile</a></li>
+									<li><a href="{{route('profile')}}">Profile</a></li>
 									<li><a href="contacts.html">Contacts</a></li>
 									<li><a href="interview.html">Interview</a></li>
 									<li><a href="../admin/index.html" target="_blank">Admin pages</a></li>
@@ -542,6 +542,7 @@
 									<li>2016</li>
 								</ul>
 							</div>
+							
 
 							<div class="card">
 								<a href="details.html" class="card__cover">
@@ -1347,7 +1348,7 @@
 					<h6 class="footer__title">FlixTV</h6>
 					<div class="footer__nav">
 						<a href="about.html">About us</a>
-						<a href="profile.html">My profile</a>
+						<a href="{{route('profile')}}">My profile</a>
 						<a href="pricing.html">Pricing plans</a>
 						<a href="contacts.html">Contacts</a>
 					</div>

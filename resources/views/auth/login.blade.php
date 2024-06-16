@@ -32,7 +32,7 @@
 
 	<span class="sign__text">Don't have an account? <a href="{{route('register')}}">Sign Up!</a></span>
 
-	<span class="sign__text"><a href="forgot.html">Forgot password?</a></span>
+	<span class="sign__text"><a href="{{route('password.request')}}">Forgot password?</a></span>
 </form>
 <!-- end authorization form -->
 @endsection

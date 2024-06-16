@@ -51,6 +51,12 @@ Primary use:	FlixTV HTML Template
 /*==============================
 	Common styles
 ==============================*/
+.invalid-feedback{
+  color:red;
+  font-size: 11px;
+  
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
