@@ -88,10 +88,10 @@
 
 								<ul class="dropdown-menu header__nav-menu header__nav-menu--scroll" aria-labelledby="dropdownMenu3">
 									<li><a href="about.html">About us</a></li>
-									<li><a href="profile.html">Profile</a></li>
+									<li><a href="route('upload-profile')">Profile</a></li>
 									<li><a href="contacts.html">Contacts</a></li>
 									<li><a href="interview.html">Interview</a></li>
-									<li><a href="../admin/index.html" target="_blank">Admin pages</a></li>
+									<li><a href="{{url('/admin')}}" target="_blank">Admin pages</a></li>
 									<li><a href="privacy.html">Privacy policy</a></li>
 									<li><a href="signin.html">Sign in</a></li>
 									<li><a href="signup.html">Sign up</a></li>
@@ -134,7 +134,7 @@
 
 				<div class="col-12 col-xl-6">
 					<ul class="breadcrumb">
-						<li class="breadcrumb__item"><a href="index.html">Home</a></li>
+						<li class="breadcrumb__item"><a href="{{url('/user')}}">Home</a></li>
 						<li class="breadcrumb__item breadcrumb__item--active">Profile</li>
 					</ul>
 				</div>

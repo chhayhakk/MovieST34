@@ -89,7 +89,6 @@ class UserController extends Controller
         ]);
        
         return redirect()->route('upload-profile');
-
     }
 
     /**
