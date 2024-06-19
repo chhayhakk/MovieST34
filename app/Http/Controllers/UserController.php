@@ -30,16 +30,28 @@ class UserController extends Controller
         
     }
     public function review(Request $request, $movie_id)
-    {
-        $movie = Movies::findOrFail($movie_id);
+{
+    $movie = Movies::findOrFail($movie_id);
 
+    // Verify if the user has already reviewed this movie
+    $existingReview = Reviews::where('movie_id', $movie_id)
+                             ->where('user_id', Auth::user()->id)
+                             ->first();
+
+    if ($existingReview) {
+        // Update existing review
+        $existingReview->title_review = $request->input('title');
+        $existingReview->content = $request->input('review');
+        $existingReview->rate = $request->input('select');
+        $existingReview->save();
+    } else {
         // Validate incoming request data
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'review' => 'required|string',
             'select' => 'required|integer|min:1|max:5',
         ]);
-    
+
         // Create a new review
         $review = new Reviews();
         $review->title_review = $validatedData['title'];
@@ -48,12 +60,15 @@ class UserController extends Controller
         $review->user_id = Auth::user()->id;
         $review->movie_id = $movie_id;
         $review->save();
-
-        $reviews = Reviews::all();
-    
-        // Return the view with movie and review data
-        return view('auth.detail', compact('movie', 'review','reviews'));
     }
+
+    // Fetch all reviews for the current movie
+    $reviews = Reviews::where('movie_id', $movie_id)->get();
+
+    // Return the view with movie and review data
+    return view('auth.detail', compact('movie', 'reviews'));
+}
+    
 
     
 
@@ -64,8 +79,8 @@ class UserController extends Controller
     public function detail($movie_id)
     {
     $movie = Movies::findOrFail($movie_id);
-    $reviews = Reviews::all();
-    return view('auth.detail', compact('movie','reviews'));
+    $reviews = Reviews::where('movie_id', $movie_id)->get();
+    return view('auth.detail', compact('movie', 'reviews'));
     }
 
     /**

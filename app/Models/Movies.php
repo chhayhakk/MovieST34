@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Movies extends Model
 {
     use HasFactory;
+    
     public function reviews()
     {
         return $this->hasMany(Reviews::class, 'movie_id');
