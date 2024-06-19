@@ -13,16 +13,12 @@ return new class extends Migration
     {
         //
         Schema::table('movies', function (Blueprint $table) {
-        $table->string("release");
-        $table->enum('quality', ['hd','fullhd','2k','4k']);
-        $table->enum('type',['movie','tvshow']);
-        $table->string('back_photo')->default("nothumb.back.png");
-        $table->unsignedBigInteger("user_id");
-        $table->foreign('user_id')->references('id')->on('users');
-    
+           
+            $table->unsignedBigInteger('genre_id');
+            $table->foreign('genre_id')->references('id')->on('genres');
+            
         
-    
-        });
+            });
     }
 
     /**

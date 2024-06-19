@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\IsAdmin;
@@ -14,13 +15,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //This is for user interface
         return view('auth.user');
     });
+    Route::get('/user', [UserController::class, 'index'])->name('show.movies');
+
+    //User Profile Information
     Route::get('/profile', function(){
         return view('auth.profile');
     })->name('profile');
     Route::post('/profile/upload-avatar', [UserController::class, 'storeimage'])->name('upload-avatar');
     Route::post('/profile', [UserController::class, 'updateprofile'])->name('upload-profile');
     Route::post('/profile/update-passowrd', [UserController::class, 'updatepassword'])->name('update-password');
-    
+    //Review and Comment of Movie
+    // Route::get('/detail/{movie_id}', function(){
+    //     return view('auth.detail');
+    // })->name('moviedetail');
+    Route::get('/detail/{movie_id}', [UserController::class, 'detail'])->name('movies.detail');
+    Route::post('/detail/{movie_id}', [UserController::class, 'review'])->name('movies.review');
+   
     
 });
 

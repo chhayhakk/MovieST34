@@ -10,25 +10,62 @@ use Illuminate\Support\Facades\Validator;
 
 
 use Illuminate\Http\Request;
+use App\Models\Movies;
+use App\Models\Reviews;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+   
+
     public function index(Request $request)
     {
         //
         
+        $movies = Movies::all();
+       
+        return view('auth.user', compact('movies'));
         
     }
+    public function review(Request $request, $movie_id)
+    {
+        $movie = Movies::findOrFail($movie_id);
+
+        // Validate incoming request data
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'review' => 'required|string',
+            'select' => 'required|integer|min:1|max:5',
+        ]);
+    
+        // Create a new review
+        $review = new Reviews();
+        $review->title_review = $validatedData['title'];
+        $review->content = $validatedData['review'];
+        $review->rate = $validatedData['select'];
+        $review->user_id = Auth::user()->id;
+        $review->movie_id = $movie_id;
+        $review->save();
+
+        $reviews = Reviews::all();
+    
+        // Return the view with movie and review data
+        return view('auth.detail', compact('movie', 'review','reviews'));
+    }
+
+    
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    
+    public function detail($movie_id)
     {
-        //
+    $movie = Movies::findOrFail($movie_id);
+    $reviews = Reviews::all();
+    return view('auth.detail', compact('movie','reviews'));
     }
 
     /**
