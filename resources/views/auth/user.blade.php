@@ -148,7 +148,7 @@
 					<ul>
 						<li>Free</li>
 						<li>{{$movie->genre->name}}</li>
-						<li>2021</li>
+						<li>{{$movie->year}}</li>
 					</ul>
 				</div>
 				
