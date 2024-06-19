@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         'type' => 'tvshow',
         'back_photo' => 'dutyafterschoolback.jpeg',
         'user_id'=>'1',
-        'genre' =>'1',
+        'genre_id' =>'2',
         ]);
     }
 
