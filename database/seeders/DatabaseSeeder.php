@@ -21,22 +21,24 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        Movies::factory()->create([
-        'title' => 'Duty After School',
-        'description' => 'This is a Tv Show',
-        'duration' => '2:22:22',
-        'year' => '2022',
-        'image_path' => 'dutyafterschool.jpg',
-        'created_at' => Carbon::now(),
-        'updated_at'=>Carbon::now(),
-        'release' => '2022',
-        'quality' => '4k',
-        'type' => 'tvshow',
-        'back_photo' => 'dutyafterschoolback.jpeg',
-        'user_id'=>'1',
-        'genre_id' =>'2',
-        ]);
+       
+            Movies::factory()->create([
+                'title' => 'All of Us Are Dead',
+                'description' => 'This is a Tv Show',
+                'duration' => '2:22:22',
+                'year' => '2022',
+                'image_path' => 'dutyafterschoolback.jpg',
+                'created_at' => Carbon::now(),
+                'updated_at'=>Carbon::now(),
+                'release' => '2023',
+                'quality' => '4k',
+                'type' => 'tvshow',
+                'back_photo' => 'dutyafterschoolback.jpeg',
+                'user_id'=>'1',
+                'genre_id' =>'3',
+              ]);
+        
+     
     }
 
 }

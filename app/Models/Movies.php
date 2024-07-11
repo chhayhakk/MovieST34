@@ -12,6 +12,11 @@ class Movies extends Model
     public function reviews()
     {
         return $this->hasMany(Reviews::class, 'movie_id');
+        
+    }
+    public function getAverageRatingAttribute()
+    {
+        return $this->reviews()->avg('rate');
     }
     public function genre()
     {

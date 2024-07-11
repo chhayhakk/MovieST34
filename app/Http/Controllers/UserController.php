@@ -19,18 +19,17 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
    
-
+    //Fetch all movies from database
     public function index(Request $request)
     {
-        //
-        
         $movies = Movies::all();
-       
         return view('auth.user', compact('movies'));
         
     }
+
+    //Function fetch current movie by ID
     public function review(Request $request, $movie_id)
-{
+    {
     $movie = Movies::findOrFail($movie_id);
 
     // Verify if the user has already reviewed this movie
@@ -49,7 +48,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'review' => 'required|string',
-            'select' => 'required|integer|min:1|max:5',
+            'select' => 'required|integer|min:1|max:10',
         ]);
 
         // Create a new review
@@ -63,10 +62,13 @@ class UserController extends Controller
     }
 
     // Fetch all reviews for the current movie
-    $reviews = Reviews::where('movie_id', $movie_id)->get();
+        $reviews = Reviews::where('movie_id', $movie_id)->get();
+        // Calculate average rating and total number of reviews
 
-    // Return the view with movie and review data
-    return view('auth.detail', compact('movie', 'reviews'));
+
+        $avg_rate = $reviews->avg('rate') ?? 0; // Default to 0 if no reviews found
+        $total_reviews = $reviews->count();
+        return view('auth.detail', compact('movie', 'reviews', 'avg_rate', 'total_reviews'));
 }
     
 
@@ -78,9 +80,13 @@ class UserController extends Controller
     
     public function detail($movie_id)
     {
-    $movie = Movies::findOrFail($movie_id);
-    $reviews = Reviews::where('movie_id', $movie_id)->get();
-    return view('auth.detail', compact('movie', 'reviews'));
+        //Fetch current movie
+        $movie = Movies::findOrFail($movie_id);
+        $reviews = Reviews::where('movie_id', $movie_id)->get();
+
+        $avg_rate = $reviews->avg('rate') ?? 0; // Default to 0 if no reviews found
+        $total_reviews = $reviews->count();
+        return view('auth.detail', compact('movie', 'reviews', 'avg_rate', 'total_reviews'));
     }
 
     /**
@@ -105,7 +111,6 @@ class UserController extends Controller
             return response()->json(['path' => $imageUrl]);
         }
         
-    
         return response()->json(['error' => 'No file uploaded.'], 400);
     }
 
@@ -137,7 +142,7 @@ class UserController extends Controller
             ->where('id', $user->id)
             ->update([
                 'name' => $request->username,
-                'email'=>$request->email,
+                //'email'=>$request->email,
         ]);
        
         return redirect()->route('upload-profile');
@@ -175,14 +180,9 @@ class UserController extends Controller
                     ->where('id', $user->id)
                     ->update(['password' => $newPasswordHash]);
 
-                }
-                
+                }    
             }
-    
-            // Hash and update new password
-           
         }
-    
         return redirect()->route('upload-profile');
     }
 

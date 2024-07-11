@@ -1,20 +1,28 @@
 <?php
 
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('auth.register');
-});
+
+
+Route::get('/', [GuestController::class, 'index'])->name('guest.movies');
+Route::get('/detail/{movie_id}', [UserController::class, 'detail'])->name('movies.detail');
+Route::post('/detail/{movie_id}', [UserController::class, 'review'])->name('movies.review');
+// Route::get('/{movie_id}', [GuestController::class, 'detail'])->name('guest.detail');
+// Route::post('/{movie_id}', [GuestController::class, 'review'])->name('guest.review');
+
+
+
 // This is for user
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/user', function () {
-        //This is for user interface
-        return view('auth.user');
-    });
+    // Route::get('/user', function () {
+    //     //This is for user interface
+    //     return view('auth.user');
+    // });
     Route::get('/user', [UserController::class, 'index'])->name('show.movies');
 
     //User Profile Information
@@ -26,8 +34,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profile/update-passowrd', [UserController::class, 'updatepassword'])->name('update-password');
 
     //Review and Comment of Movie
-    Route::get('/detail/{movie_id}', [UserController::class, 'detail'])->name('movies.detail');
-    Route::post('/detail/{movie_id}', [UserController::class, 'review'])->name('movies.review');
+    // Route::get('/detail/{movie_id}', [UserController::class, 'detail'])->name('movies.detail');
+    // Route::post('/detail/{movie_id}', [UserController::class, 'review'])->name('movies.review');
    
     
 });
